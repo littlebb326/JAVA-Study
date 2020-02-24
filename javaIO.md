@@ -25,5 +25,3 @@ JAVA IO
 * **Buffered**Reader, **Buffered** Writer
 
 # 자바 입출력 상속 관계도
-
-![IO tree](./입출력 관계도.png)
