@@ -171,3 +171,4 @@ public class Ex1 {
 </code>
 </pre>
 
+![result2](./image/ex2.PNG)
