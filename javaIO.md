@@ -172,3 +172,49 @@ public class Ex1 {
 </pre>
 
 ![result2](./image/ex2.PNG)
+
+
+# 문자 단위 입출력 예제(2)
+<pre>
+<code>
+package exIO;
+
+import java.io.*;
+
+public class Ex1 {
+
+	public static void main(String[] args) throws IOException {
+		
+		InputStreamReader isr = null;
+		OutputStreamWriter osw = null;
+		
+		isr = new InputStreamReader(System.in);
+		osw = new OutputStreamWriter(System.out);
+		
+		try {
+			int i = 0;
+			
+			while((i = isr.read()) != -1)
+			{
+				osw.write(i);
+				osw.flush();
+			}
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		finally {
+			try {
+				osw.close();
+				isr.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+}
+</code>
+</pre>
+
+
