@@ -29,7 +29,7 @@ JAVA IO
 ![tree](./image/IO_tree.PNG)
 
 
-# 바이트 단위 입출력 예제
+# 바이트 단위 입출력 예제(1)
 
 <pre>
 <code>
@@ -76,3 +76,55 @@ public class Ex1 {
 </pre>
 
 ![result1](./image/ex1.PNG)
+
+# 바이트 단위 입출력 예제(2)
+
+<pre>
+<code>
+package exIO;
+
+import java.io.*;
+
+public class Ex1 {
+
+	public static void main(String[] args) {
+		
+		long startTime = System.currentTimeMillis();        
+        FileInputStream fis = null; 
+        FileOutputStream fos = null;        
+        try {
+            fis = new FileInputStream("input.txt");
+            fos = new FileOutputStream("output.txt");
+
+            int readCount = -1; 
+            byte[] buffer = new byte[512]; //512 byte 크기의 바이트형 배열 생성
+            while((readCount = fis.read(buffer))!= -1){
+                fos.write(buffer,0,readCount);
+            }
+            
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally{
+            try {
+                fos.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            try {
+                fis.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    //메소드가 끝났을때 시간을 구하기 위함. 
+    long endTime = System.currentTimeMillis();
+    //메소드를 수행하는데 걸린 시간을 구할 수 있음. 
+    System.out.println(endTime-startTime);
+	}
+
+}
+</code>
+</pre>
