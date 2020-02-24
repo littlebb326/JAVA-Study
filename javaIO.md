@@ -128,3 +128,46 @@ public class Ex1 {
 }
 </code>
 </pre>
+
+# 문자 단위 입출력 예제(1)
+<pre>
+<code>
+package exIO;
+
+import java.io.*;
+
+public class Ex1 {
+
+	public static void main(String[] args) {
+		
+		BufferedReader br = null;
+		PrintWriter pw = null;
+		
+		
+		
+		try {
+			br = new BufferedReader(new FileReader("input.txt"));
+			//System.in은 InputStream 타입이므로 BufferedReader의 생성자에 바로 들어갈 수 없다.
+			pw = new PrintWriter(new FileWriter("output.txt"));
+			
+			String line = null;
+			
+			while((line = br.readLine()) != null) {
+				pw.println(line);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			pw.close();
+			try {
+				br.close();
+			} catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+}
+</code>
+</pre>
+
