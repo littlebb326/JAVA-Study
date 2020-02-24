@@ -23,3 +23,7 @@ JAVA IO
 * 문자 단위로 데이터 전송
 * **File**Reader, **File**Writer
 * **Buffered**Reader, **Buffered** Writer
+
+# 자바 입출력 상속 관계도
+
+![stream](./입출력 관계도.png)
