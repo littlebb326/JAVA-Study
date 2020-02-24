@@ -10,9 +10,16 @@ JAVA IO
 ![stream](./stream.png)
 
 
-# 바이트기반 스트림
+# 바이트 단위 입출력 스트림
 
 * InputStream / OutputStream
 * 바이트 단위로 데이터 전송
 * **File**InputStream, **File**OutputStream
 * **ByteArray**InputStream, **ByteArray**OutputStream
+
+# 문자 단위 입출력 스트림
+
+* Reader / Writer
+* 문자 단위로 데이터 전송
+* **File**Reader, **File**Writer
+* **Buffered**Reader, **Buffered** Writer
