@@ -1,2 +1,8 @@
 JAVA IO
 ==================
+
+# 스트림이란?
+* 데이터를 운반하는데 사용되는 연결통로
+* 연속적인 데이터의 흐름
+* 단방향성, FIFO
+![Alt text](C:/Users/sungmin_hong/Desktop/to/stream.png)
