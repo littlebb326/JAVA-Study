@@ -8,3 +8,11 @@ JAVA IO
 
 
 ![stream](./stream.png)
+
+
+# 바이트기반 스트림
+
+* InputStream / OutputStream
+* 바이트 단위로 데이터 전송
+* **File** InputStream, FileOutputStream
+* ByteArrayInputStream, ByteArrayOutputStream
