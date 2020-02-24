@@ -26,4 +26,4 @@ JAVA IO
 
 # 자바 입출력 상속 관계도
 
-![tree](./IO_tree.png)
+![tree](./IO_tree.PNG)
