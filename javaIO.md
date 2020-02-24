@@ -7,7 +7,7 @@ JAVA IO
 * 단방향성, FIFO
 
 
-![stream](./stream.png)
+![stream](./image/stream.png)
 
 
 # 바이트 단위 입출력 스트림
@@ -26,7 +26,7 @@ JAVA IO
 
 # 자바 입출력 상속 관계도
 
-![tree](./IO_tree.PNG)
+![tree](./image/IO_tree.PNG)
 
 
 # 바이트 단위 입출력 예제
@@ -75,4 +75,4 @@ public class Ex1 {
 </code>
 </pre>
 
-
+![result1](./image/ex1.PNG)
