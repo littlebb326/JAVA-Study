@@ -14,5 +14,5 @@ JAVA IO
 
 * InputStream / OutputStream
 * 바이트 단위로 데이터 전송
-* **File** InputStream, FileOutputStream
-* ByteArrayInputStream, ByteArrayOutputStream
+* **File**InputStream, **File**OutputStream
+* **ByteArray**InputStream, **ByteArray**OutputStream
