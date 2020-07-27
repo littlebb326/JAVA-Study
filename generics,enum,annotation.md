@@ -3,7 +3,7 @@ JAVA Generics, Enum, Annotation
 
 # 제네릭스란?
 * 자바 J2SE 5.0 이후에 도입된 개념
-* 다양한 타입의 객체들을 다루는 메서드나 클래스에 컴파일 시의 **타입체크**를 해주는 기능
+* 다양한 타입의 객체들을 다루는 메서드나 클래스에 컴파일 시의 **타입체크**를 해주는 기능  
 
 <pre>
 <code>
@@ -14,7 +14,7 @@ list.add(100);
 </code>
 </pre>
 > :warning: ArrayList is a raw type. References to generic type ArrayList<E> should be parameterized.
-
+  
 
 <pre>
 <code>
@@ -24,17 +24,17 @@ list.add("홍성민");
 list.add(100);
 </code>
 </pre>
-- list.add("홍성민")에서는 경고가 발생하지 않고,
-- list.add(100)에서
+list.add("홍성민")에서는 경고가 발생하지 않고,  
+list.add(100)에서  
 > :x: The method add(int, String) in the type ArrayList<String> is not applicable for the argument (int)
 
 
-- ArrayList **<String>**처럼 제네릭스는 "앞으로 이 ArrayList에는 String 객체만 담겠어!" 라고 명시한 것
-- 다시 말해, 어떤 자료형에 담을 '타입 변수'를 지정하는 것이 제네릭스임.
-- 제네릭스를 사용함으로써 컴파일 시에 '타입 체크'를 진행하기 때문에, 개발자가 의도한 타입이 들어간 것은 아닌지 사전에 알 수 있으며, 제네릭스의 이러한 점이 '타입 안정성'을 제공함.
+ArrayList <String>처럼 제네릭스는 "앞으로 이 ArrayList에는 String 객체만 담겠어!" 라고 명시한 것  
+다시 말해, 어떤 자료형에 담을 '타입 변수'를 지정하는 것이 제네릭스임.  
+제네릭스를 사용함으로써 컴파일 시에 '타입 체크'를 진행하기 때문에, 개발자가 의도한 타입이 들어간 것은 아닌지 사전에 알 수 있으며, 제네릭스의 이러한 점이 '타입 안정성'을 제공함.  
 	
-- 만약 제네릭스를 사용하지 않는 경우 ArrayList안의 객체는 Object 타입으로 인식됨.
-- ArrayList에 객체를 삽입할 때는 문제가 되지 않지만, ArrayList에서 객체를 꺼낼 경우 Object형에서 알맞은 자료형으로 Casting 해줘야 함.
+만약 제네릭스를 사용하지 않는 경우 ArrayList안의 객체는 Object 타입으로 인식됨.  
+ArrayList에 객체를 삽입할 때는 문제가 되지 않지만, ArrayList에서 객체를 꺼낼 경우 Object형에서 알맞은 자료형으로 Casting 해줘야 함.  
 <pre>
 <code>
 ArrayList myList = new ArrayList();
