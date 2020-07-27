@@ -14,16 +14,13 @@ list.add(100);
 </code>
 </pre>
 > :warning: ArrayList is a raw type. References to generic type ArrayList<E> should be parameterized.
-  
 
-<pre>
-<code>
-
+```
 ArrayList<String> list = new ArrayList<String>();
 list.add("홍성민");
 list.add(100);
-</code>
-</pre>
+```
+
 list.add("홍성민")에서는 경고가 발생하지 않고,  
 list.add(100)에서  
 > :x: The method add(int, String) in the type ArrayList<String> is not applicable for the argument (int)
