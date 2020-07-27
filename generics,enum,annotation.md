@@ -51,7 +51,47 @@ myList.add("java");
 String hello = myList.get(0);
 String java = myList.get(1);
 ```
-	
+
+# 제네릭 클래스
+
+```
+public class ArrayList<E>{
+    (중략)
+    public ListIterator<E> listIterator(int index) {
+    (중략)
+    public E next() {
+```
+
+- ArrayList의 클래스 선언문을 보면 타입 변수를`<E>`로 명시하고 있음.  
+- E는 어떤 타입의 객체가 사용될지 정해지지 않았고, 앞으로 객체를 만드는 사람이 어떤 타입을 쓸 지 정하라는 뜻.  
+- 결론적으로 객체 생성 시에 제네릭스를 쓰기 위해서는, 클래스를 만든 개발자가 제네릭스를 명시해야 사용할 수 있음.  
+- 이렇게 제네릭스가 사용된 클래스를 '제네릭 클래스'라고 함.  
+
+# 제한된 제네릭 클래스
+
+```
+class MyClass<T>{
+    . . .
+}
+```
+
+어떤 개발자가 MyClass를 설계하려고 할 때, 위와 같이 설계한다면 어떤 타입변수든 제네릭스를 사용해 MyClass 객체를 생성할 수 있음.  
+만약, MyClass의 타입변수로 숫자(Integer, Long...)만이 정상적으로 작동하게 하려면?
+
+```
+class MyClass2<T extends Number>{
+    . . .
+}
+```
+위처럼 extends 키워드를 이용하여 Number클래스와 Number클래스의 자손들만 타입변수로 담을 수 있도록 제한할 수 있음.
+
+# 제네릭 클래스 사용시 주의사항
+- 타입 변수가 인터페이스를 구현한 객체로 제한하고 싶다고 하더라도 implements가 아닌 extends 키워드를 사용
+`class MyCalss<T extends MyInterface>{ ... }`
+- 타입 변수가 클래스의 상속과 인터페이스의 구현을 모두 해야 한다면 &기호로 구분
+`class MyCalss<T extends Number & MyInterface>{ ... }`
+
+
 # 바이트 단위 입출력 스트림
 
 * InputStream / OutputStream
