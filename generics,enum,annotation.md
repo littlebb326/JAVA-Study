@@ -13,7 +13,7 @@ list.add("홍성민");
 list.add(100);
 </code>
 </pre>
-!!ArrayList is a raw type. References to generic type ArrayList<E> should be parameterized.
+> :warning: ArrayList is a raw type. References to generic type ArrayList<E> should be parameterized.
 
 <pre>
 <code>
