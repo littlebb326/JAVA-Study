@@ -1,12 +1,9 @@
-JAVA STUDY
-Generics, Enum, Annotation
+JAVA Generics, Enum, Annotation
 ==================
 
-# 스트림이란?
-* 데이터를 운반하는데 사용되는 연결통로
-* 연속적인 데이터의 흐름
-* 단방향성, FIFO
-
+# 제네릭스란?
+* 자바 J2SE 5.0 이후에 도입된 개념
+* 다양한 타입의 객체들을 다루는 메서드나 클래스에 컴파일 시의 **타입체크**를 해주는 기능
 
 ![stream](./image/stream.png)
 
