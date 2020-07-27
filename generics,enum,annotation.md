@@ -13,7 +13,7 @@ list.add("홍성민");
 list.add(100);
 </code>
 </pre>
-ArrayList is a raw type. References to generic type ArrayList<E> should be parameterized. 라는 경고가 발생함.
+!!ArrayList is a raw type. References to generic type ArrayList<E> should be parameterized.
 
 <pre>
 <code>
@@ -23,7 +23,8 @@ list.add("홍성민");
 list.add(100);
 </code>
 </pre>
-list.add("홍성민")에서는 경고가 발생하지 않으며, list.add(100)에서는 The method add(int, String) in the type ArrayList<String> is not applicable for the argument (int) 라는 에러가 발생함.
+list.add("홍성민")에서는 경고가 발생하지 않으며, list.add(100)에서는 
+!xThe method add(int, String) in the type ArrayList<String> is not applicable for the argument (int)
 
 ArrayList **<String>**처럼 제네릭스는 "앞으로 이 ArrayList에는 String 객체만 담겠어!" 라고 명시한 것
 다시 말해, 어떤 자료형에 담을 '타입 변수'를 지정하는 것이 제네릭스임.
