@@ -5,8 +5,14 @@ JAVA Generics, Enum, Annotation
 * 자바 J2SE 5.0 이후에 도입된 개념
 * 다양한 타입의 객체들을 다루는 메서드나 클래스에 컴파일 시의 **타입체크**를 해주는 기능
 
-![stream](./image/stream.png)
-
+<pre>
+<code>
+ArrayList list = new ArrayList();
+		list.add("홍성민");
+		list.add(100);
+</code>
+</pre>
+이 코드의 경우 - ArrayList is a raw type. References to generic type ArrayList<E> should be parameterized. 라는 경고가 발생함.
 
 # 바이트 단위 입출력 스트림
 
