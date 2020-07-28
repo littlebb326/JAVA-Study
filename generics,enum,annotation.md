@@ -306,10 +306,10 @@ for(Direction d : dArr)
 
 |메소드|설명|
 |:---|:---|
-|Class<E> getDeclaringClass()|열거형의 Class 객체를 반환한다.|
-|String name()|열거형 상수의 이름을 문자열로 반환한다.|
-|int ordinal()|열거형 상수가 정의된 순서를 반환한다.(0 부터 시작)|
-|T valueOf(Class<T> enumType, String name)|지정된 열거형에서 name과 일치하는 열거형 상수를 반환한다.|
+|`Class<E> getDeclaringClass()`|열거형의 Class 객체를 반환한다.|
+|`String name()`|열거형 상수의 이름을 문자열로 반환한다.|
+|`int ordinal()`|열거형 상수가 정의된 순서를 반환한다.(0 부터 시작)|
+|`T valueOf(Class<T> enumType, String name)`|지정된 열거형에서 name과 일치하는 열거형 상수를 반환한다.|
 	
 
 
