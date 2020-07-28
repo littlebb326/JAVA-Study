@@ -175,10 +175,54 @@ class Juicer {
 ```
 위처럼 와일드 카드를 사용하면 Fruit뿐만 아니라 `FruitBox<Apple>`, `FruitBox<Grape>`도 매개 변수로 들어갈 수 있음.
 
-- 와일드 카드의 종류
+# 와일드 카드의 종류
+
 1. <? extends T> 와일드 카드의 상한 제한(upper bound) - T와 그 자손들을 구현한 객체들만 매개변수로 가능
 2. <? super T> 와일드 카드의 하한 제한(lower bound) -T와 그 조상들을 구현한 객체들만 매개변수로 가능
 3. <?> 제한 없음
+
+# 제네릭 메소드
+
+메소드의 선언부에 제네릭 타입이 선언된 메소드
+
+```
+class FruitBox<T> {
+	...
+	static <T> void sort(List<T> list, Comparator<? super T> c) {
+		...
+	}
+}
+```
+- FruitBox는 제네릭 클래스이며 타입 매개변수 T를 가짐.
+- sort()는 제네릭 메소드이며 타입 매개변수 T를 갖고 이 타입 변수는 FruitBox의 타입 매개변수 T와 다름.
+
+
+```
+class Juicer {
+	static Juice makeJuice(FruitBox<? extends Fruit> box) {
+		String tmp = "";
+		for(Fruit f : box.getList()) tmp += f + " ";
+		return new Juice (tmp);
+	}
+
+	static <T extends Fruit> Juice makeJuice(FruitBox<T> box) {
+		String tmp = "";
+		for(Fruit f : box.getList()) tmp += f + " ";
+		return new Juice (tmp);
+	}
+}
+```
+- 와일드 카드를 이용했던 makeJuice 메소드를 제네릭 메소드로 표현할 수 있음.
+- 제네릭 메소드를 호출할 때는 아래와 같이 타입 변수에 타입을 대입해야 함.
+
+```
+FruitBox<Fruit> fruitBox = new FruitBox<Fruit>();
+FruitBox<Apple> appleBox = new FruitBox<Apple>();
+
+System.out.println(Juicer.<Fruit>makeJuice(fruitBox));
+System.out.println(Juicer.<Apple>makeJuice(appleBox));
+```
+
 
 
 
