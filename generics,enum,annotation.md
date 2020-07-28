@@ -311,5 +311,49 @@ for(Direction d : dArr)
 |`int ordinal()`|열거형 상수가 정의된 순서를 반환한다.(0 부터 시작)|
 |`T valueOf(Class<T> enumType, String name)`|지정된 열거형에서 name과 일치하는 열거형 상수를 반환한다.|
 	
+# 열거형에 멤버 추가
 
+- 열거형 상수의 값을 불연속적인 값으로 지정해주고 싶다면 열거형 상수의 이름 옆에 원하는 값을 ()와 함께 적어줌.
+- 또한 지정된 값을 저장할 수 있는 인스턴스 변수와 생성자를 추가해야 함.
 
+```
+enum Direction {
+	EAST(1), SOUTH(5), WEST(-1), NORTH(10); // 꼭 ; 붙여야함
+
+	private final int value;	
+	Direction(int value) {	this.value = value;	}
+	
+	public int getValue() {	return value;	}
+	
+}
+
+Direction d = Direction.SOUTH;
+System.out.println(d.name()); // SOUTH
+System.out.println(d.getValue()); // 5
+```
+
+# 열거형의 이해
+
+- 열거형은 내부적으로 열거형 상수 하나하나가 열거형의 객체
+
+`enum Direction { EAST, SOUTH, WEST, NORTH };`
+- Direction의 열거형 상수 EAST, SOUTH, WEST, NORTH 하나하나가 Direction의 객체
+
+```
+class Direction {
+	
+	static final Direction EAST = new Direction("EAST");
+	static final Direction SOUTH = new Direction("SOUTH");
+	static final Direction WEST = new Direction("WEST");
+	static final Direction NORTH = new Direction("NORTH");
+	
+	private String name;
+	
+	private Direction(String name) {
+		this.name = name;
+	}
+	
+}
+```
+
+- Direction 클래스의 static 상수 EAST, SOUTH, WEST, NORTH의 값은 객체의 주소이며, 이 값은 바뀌지 않으므로 '==' 로 비교 가능.
