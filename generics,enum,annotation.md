@@ -2,26 +2,40 @@ JAVA Generics, Enum, Annotation
 ==================
 
 # 제네릭스란?
-* 자바 J2SE 5.0 이후에 도입된 개념
-* 다양한 타입의 객체들을 다루는 메서드나 클래스에 컴파일 시의 **타입체크**를 해주는 기능  
+* 자바 JDK 1.5 이후에 도입된 개념
+* 다양한 타입의 객체들을 다루는 메서드나 클래스에 **컴파일 시의 타입체크**를 해주는 기능  
 
 ```
-// 제네릭스 사용하지 않은 경우
-ArrayList list = new ArrayList();
-
-list.add("홍성민");
-list.add(100);
+// 일반 클래스 Box
+class Box {
+	
+	Object item;
+	
+	void setItem(Object item) {
+		this.item = item;
+	}
+	Object getItem() {
+		return item;
+	}
+	
+}
 ```
 
-> :warning: `ArrayList is a raw type. References to generic type ArrayList<E> should be parameterized.`
-
 ```
-// 제네릭스 사용한 경우
-ArrayList<Integer> list = new ArrayList<Integer>();
-list.add("홍성민"); // error 발생!
-list.add(100);
+// 제네릭 클래스 Box
+class Box<T> { //T는 타입 변수, 타입 변수는 ArrayList<E> 혹은 Map<K,V> 등으로 사용 가능
+	
+	T item; // Object를 모두 T로 변경
+	
+	void setItem(T item) {
+		this.item = item;
+	}
+	T getItem() {
+		return item;
+	}
+	
+}
 ```
-> :x: `The method add(Integer) in the type ArrayList<Integer> is not applicable for the argument (String)`
 
 
 ArrayList `<String>`처럼 제네릭스는 "앞으로 이 ArrayList에는 String 객체만 담겠어!" 라고 명시한 것  
