@@ -38,69 +38,105 @@ class Box<T> { //T는 타입 변수, 타입 변수는 ArrayList<E> 혹은 Map<K,
 ```
 
 
-ArrayList `<String>`처럼 제네릭스는 "앞으로 이 ArrayList에는 String 객체만 담겠어!" 라고 명시한 것  
-다시 말해, 어떤 자료형에 담을 '타입 변수'를 지정하는 것이 제네릭스.  
-제네릭스를 사용함으로써 컴파일 시에 '타입 체크'를 진행하기 때문에, 개발자가 의도한 타입이 들어간 것은 아닌지 사전에 알 수 있으며, 제네릭스의 이러한 점이 '타입 안정성'을 제공함.  
+클래스에 타입 변수를 지정하면 제네릭 클래스가 되고, 제네릭 클래스의 객체를 생성할 때는 타입 T 대신에 사용될 실제 타입을 지정해야함.
+
+```
+//Box b = new Box(); 제네릭 클래스이므로 실제 타입을 지정해야함.
+Box<String> b = new Box<String>();
+//b.setItem(new Object()); String이외의 타입은 지정 불가.
+b.setItem("abc");
+String item = b.getItem(); // 형변환 필요 없음.
+```
+
+# 제네릭스의 장점
+
+- 제네릭스를 사용함으로써 컴파일 시에 '타입 체크'를 진행하기 때문에, 개발자가 의도하지 않은 타입이 들어갔는 지 사전에 알 수 있으며, 이러한 점이 **타입 안정성**을 제공함.  
+- 객체를 꺼낼 때 형변환을 생력할 수 있고, 타입체크를 따로 할 필요가 없어 코드가 간결해짐.
+
+# 제네릭스의 제한
+
+```
+class Box<T> {
 	
-만약 제네릭스를 사용하지 않는 경우 ArrayList안의 객체는 Object 타입으로 인식됨.  
-ArrayList에 객체를 삽입할 때는 문제가 되지 않지만, ArrayList에서 객체를 꺼낼 경우 Object형에서 알맞은 자료형으로 Casting 해줘야 함.  
+	static T item; // static 멤버에 타입 변수 T 사용 불가.
+	static int compare (T t1, T t2) {	} // Box의 모든 객체에 대해 동일하게 동작해야함.(static) 
+	
+	T[] itemArr; // T타입의 배열을 위한 참조변수(가능)
+	
+	T[] toArray() {
+		T[] tmpArr = new T[itemArr.length]; // 제네릭 배열 생성 불가
+		
+		return tmpArr;
+	}
+	
+}
 ```
-ArrayList myList = new ArrayList();
-myList.add("hello");
-myList.add("java");
+- 제네릭 클래스 Box의 객체를 생성할 때, 객체별로 다른 타입을 지정하는게 맞음.
+- 하지만 static 멤버의 경우 모든 객체에 대해 동일하게 동작해야하므로 타입 변수 T를 사용할 수 없음.
+- 또한 지네릭 배열 타입의 참조변수를 선언하는 것은 가능하지만, new 연산자로 배열을 생성하는 것은 불가능.(new로 객체를 생성할 때 어떤 타입인 지 모름)
 
-String hello = (String) myList.get(0); // Object 를 String 으로 캐스팅한다. (String)
-String java = (String) myList.get(1);
+# 제네릭 클래스의 객체 생성과 사용
+```
+class Box<T> {
+	
+	ArrayList<T> list = new ArrayList<T>();
+	
+	void add(T item) { list.add(item); }
+	T get(int i) { return list.get(i); }
+	ArrayList<T> getList() { return list; }
+	int size() { return list.size(); }
+	public String toString() { return list.toString(); }
+	
+}
+```
+```
+Box<Apple> appleBox = new Box<Apple>(); // 가능
+Box<Apple> appleBox = new Box<Grape>(); // 에러
 ```
 
-반면에, 제네릭스로 자료형을 선언하기만 하면 그 이후로는 자료형에 대한 형변환 과정이 필요없으며, 형변환에 의한 불필요한 코딩, 잘못된 형변환에 의한 런타임 오류등에서 벗어날 수 있음.
-```
-ArrayList<String> myList = new ArrayList<String>();  // JDK 1.7버전 이상부터 new ArrayList<>(); 가능
-myList.add("hello");
-myList.add("java");
-
-String hello = myList.get(0);
-String java = myList.get(1);
-```
-
-# 제네릭 클래스
-
-```
-public class ArrayList<E>{
-    (중략)
-    public ListIterator<E> listIterator(int index) {
-    (중략)
-    public E next() {
-```
-
-- ArrayList의 클래스 선언문을 보면 타입 변수를`<E>`로 명시하고 있음.  
-- E는 어떤 타입의 객체가 사용될지 정해지지 않았고, 앞으로 객체를 만드는 사람이 어떤 타입을 쓸 지 정하라는 뜻.(T도 가능)  
-- 결론적으로 객체 생성 시에 제네릭스를 쓰기 위해서는, 클래스를 만든 개발자가 제네릭스를 명시해야 사용할 수 있음.  
-- 이렇게 제네릭스가 사용된 클래스를 '제네릭 클래스'라고 함.  
-
+- Box<T>의 객체에는 T 타입의 객체만 저장할 수 있음.
+- ArrayList<T> list의 객체는 Box와 같은 T 타입만 저장할 수 있음.
+	
 # 제한된 제네릭 클래스
 
+
 ```
-class MyClass<T>{
-    . . .
+public class generics {
+	
+	public static void main(String[] args) {
+		FruitBox<Toy> fruitBox = new FruitBox<Toy>();
+		fruitBox.add(new Toy());
+	}
+}
+
+class FruitBox<T> {
+	ArrayList<T> list = new ArrayList<T>();	
 }
 ```
 
-어떤 개발자가 MyClass를 설계하려고 할 때, 위와 같이 설계한다면 어떤 타입변수든 제네릭스를 사용해 MyClass 객체를 생성할 수 있음.  
-만약, MyClass의 타입변수로 숫자(Integer, Long...)만이 정상적으로 작동하게 하려면?
+- 클래스 이름이 FruitBox여도 타입 변수를 T로 명시하면 Toy 타입의 객체를 넣을 수 있음
+- 클래스 이름대로 과일만 담기 위해서는 타입 변수 T에 제한이 필요함.
 
 ```
-class MyClass2<T extends Number>{
-    . . .
+class FruitBox<T extends Fruit> { // Fruit의 자손만 타입으로 지정가능
+	ArrayList<T> list = new ArrayList<T>();	
+	void add(T item) { list.add(item); }
+	...
 }
 ```
-위처럼 extends 키워드를 이용하여 Number클래스와 Number클래스의 자손들만 타입변수로 담을 수 있도록 제한할 수 있음.
 
-# 제네릭 클래스 사용시 주의사항
-- 타입 변수가 인터페이스를 구현한 객체로 제한하고 싶다고 하더라도 implements가 아닌 extends 키워드를 사용  
-`class MyCalss<T extends MyInterface>{ ... }`
-- 타입 변수가 클래스의 상속과 인터페이스의 구현을 모두 해야 한다면 &기호로 구분  
-`class MyCalss<T extends Number & MyInterface>{ ... }`
+- T extends Fruit 처럼 Fruit 클래스의 자손들만 넣을 수 있도록 제한.
+- 멤버변수 list와  메소드 add() 모두 Fruit 클래스의 자손들만 들어갈 수 있음.
+
+```
+interface Eatable() {}
+class FruitBox<T extends Eatable> { ... }
+class FruitBox<T extends Fruit & Eatable> { ... }
+```
+
+- 클래스가 아니라 인터페이스를 구현해야 하는 제약이 필요하다면 implements가 아닌 extends 사용.
+- 어떤 클래스의 자손이면서 인터페이스도 구현해야 한다면 &로 표현.
+
 
 # 와일드 카드 `<?>`
 메소드의 매개 변수의 타입 변수를 제한할 때 사용됨.  
