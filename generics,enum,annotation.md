@@ -63,7 +63,7 @@ public class ArrayList<E>{
 ```
 
 - ArrayList의 클래스 선언문을 보면 타입 변수를`<E>`로 명시하고 있음.  
-- E는 어떤 타입의 객체가 사용될지 정해지지 않았고, 앞으로 객체를 만드는 사람이 어떤 타입을 쓸 지 정하라는 뜻.  
+- E는 어떤 타입의 객체가 사용될지 정해지지 않았고, 앞으로 객체를 만드는 사람이 어떤 타입을 쓸 지 정하라는 뜻.(T도 가능)  
 - 결론적으로 객체 생성 시에 제네릭스를 쓰기 위해서는, 클래스를 만든 개발자가 제네릭스를 명시해야 사용할 수 있음.  
 - 이렇게 제네릭스가 사용된 클래스를 '제네릭 클래스'라고 함.  
 
@@ -86,10 +86,88 @@ class MyClass2<T extends Number>{
 위처럼 extends 키워드를 이용하여 Number클래스와 Number클래스의 자손들만 타입변수로 담을 수 있도록 제한할 수 있음.
 
 # 제네릭 클래스 사용시 주의사항
-- 타입 변수가 인터페이스를 구현한 객체로 제한하고 싶다고 하더라도 implements가 아닌 extends 키워드를 사용
+- 타입 변수가 인터페이스를 구현한 객체로 제한하고 싶다고 하더라도 implements가 아닌 extends 키워드를 사용  
 `class MyCalss<T extends MyInterface>{ ... }`
-- 타입 변수가 클래스의 상속과 인터페이스의 구현을 모두 해야 한다면 &기호로 구분
+- 타입 변수가 클래스의 상속과 인터페이스의 구현을 모두 해야 한다면 &기호로 구분  
 `class MyCalss<T extends Number & MyInterface>{ ... }`
+
+# 와일드 카드 `<?>`
+메소드의 매개 변수의 타입 변수를 제한할 때 사용됨.  
+`public void myMethod(ArrayList list) { . . . }`  
+이 메소드는 매개 변수(ArrayList)의 타입변수가 어떤 것이든 모두 받아들일 가능성이 있음. 이를 제한하려면?  
+`public void myMethod(ArrayList<? extends Number> list) { . . . }`
+이처럼 와일드 카드를 사용하면, myMethod가 받아들일 ArrayList들의 타입 변수는 Number클래스와 Number클래스를 상속받은 클래스들의 객체들만 받도록 제한할 수 있음.  
+
+# 와일드 카드`<?>`의 제한 종류
+
+- <? extends T> 와일드 카드의 상한 제한(upper bound) - T와 그 자손들을 구현한 객체들만 매개변수로 가능
+- <? super T> 와일드 카드의 하한 제한(lower bound) -T와 그 조상들을 구현한 객체들만 매개변수로 가능
+- <?> 제한 없음
+
+# `A<T extends B>` vs `A<? extends B>`
+
+`A<T extends B>`는 '제한된 제네릭 클래스'에 사용되며 제네릭 **클래스를 선언하는 개발자**의 관점에서 객체 생성시 사용 될 객체를 제한함.  
+`A<? extends B>`는 와일드 카드로 **메소드를 만드는 개발자**의 관점에서 메소드에 사용될 매개변수가 제네릭 클래스를 구현한 객체일 때, 그 제네릭 클래스의 '타입 변수'를 제한하는 것.  
+
+```
+package study;
+
+public class generics {
+	
+	public static void main(String[] args) {
+		MyClass<String> s = new MyClass<String>();
+		s.setn("abcd");
+		s.print();
+		
+		MyClass<Integer> num = new MyClass<Integer>();
+		num.setn(3);
+		num.print();		
+	}
+}
+
+class MyClass<T> {
+	
+	private T n;
+	
+	public void setn(T n) {
+		this.n = n;
+	}
+	
+	public void print() {
+		System.out.println(this.n);
+	}
+}
+```
+```
+package study;
+
+public class generics {
+	
+	public static void main(String[] args) {
+		MyClass<String> s = new MyClass<String>(); // 클래스의 
+		s.setn("abcd");
+		s.print();
+		
+		MyClass<Integer> num = new MyClass<Integer>();
+		num.setn(3);
+		num.print();		
+	}
+}
+
+class MyClass<T extends Number> {
+	
+	private T n;
+	
+	public void setn(T n) {
+		this.n = n;
+	}
+	
+	public void print() {
+		System.out.println(this.n);
+	}
+}
+```
+
 
 
 # 바이트 단위 입출력 스트림
