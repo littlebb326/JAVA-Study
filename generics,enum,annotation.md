@@ -138,82 +138,47 @@ class FruitBox<T extends Fruit & Eatable> { ... }
 - 어떤 클래스의 자손이면서 인터페이스도 구현해야 한다면 &로 표현.
 
 
-# 와일드 카드 `<?>`
-메소드의 매개 변수의 타입 변수를 제한할 때 사용됨.  
-`public void myMethod(ArrayList list) { . . . }`  
-이 메소드는 매개 변수(ArrayList)의 타입변수가 어떤 것이든 모두 받아들일 가능성이 있음. 이를 제한하려면?  
-`public void myMethod(ArrayList<? extends Number> list) { . . . }`
-이처럼 와일드 카드를 사용하면, myMethod가 받아들일 ArrayList들의 타입 변수는 Number클래스와 Number클래스를 상속받은 클래스들의 객체들만 받도록 제한할 수 있음.  
-
-# 와일드 카드`<?>`의 제한 종류
-
-- <? extends T> 와일드 카드의 상한 제한(upper bound) - T와 그 자손들을 구현한 객체들만 매개변수로 가능
-- <? super T> 와일드 카드의 하한 제한(lower bound) -T와 그 조상들을 구현한 객체들만 매개변수로 가능
-- <?> 제한 없음
-
-# `A<T extends B>` vs `A<? extends B>`
-
-`A<T extends B>`는 '제한된 제네릭 클래스'에 사용되며 제네릭 **클래스를 선언하는 개발자**의 관점에서 객체 생성시 사용 될 객체를 제한함.  
-`A<? extends B>`는 와일드 카드로 **메소드를 만드는 개발자**의 관점에서 메소드에 사용될 매개변수가 제네릭 클래스를 구현한 객체일 때, 그 제네릭 클래스의 '타입 변수'를 제한하는 것.  
+# 와일드 카드
 
 ```
-package study;
-
-public class generics {
-	
-	public static void main(String[] args) {
-		MyClass<String> s = new MyClass<String>();
-		s.setn("abcd");
-		s.print();
-		
-		MyClass<Integer> num = new MyClass<Integer>();
-		num.setn(3);
-		num.print();		
-	}
-}
-
-class MyClass<T> {
-	
-	private T n;
-	
-	public void setn(T n) {
-		this.n = n;
-	}
-	
-	public void print() {
-		System.out.println(this.n);
+class Juicer {
+	static Juice makeJuice(FruitBox<Fruit> box) {
+		String tmp = "";
+		for(Fruit f : box.getList()) tmp += f + " ";
+		return new Juice (tmp);
 	}
 }
 ```
+
+- Juicer 클래스는 제네릭 클래스가 아니며, 제네릭 클래스라고 하더라도 static 메소드에는 타입 매개변수 T를 사용할 수 없음.
+- 따라서 아예 제네릭스를 적용하지 않거나 위처럼 타입 매개변수 T 대신 특정 타입을 지정해야 함.
+
 ```
-package study;
+FruitBox<Fruit> fruitBox = new FruitBox<Fruit>();
+FruitBox<Apple> appleBox = new FruitBox<Apple>();
 
-public class generics {
-	
-	public static void main(String[] args) {
-		MyClass<String> s = new MyClass<String>(); // 클래스의 
-		s.setn("abcd");
-		s.print();
-		
-		MyClass<Integer> num = new MyClass<Integer>();
-		num.setn(3);
-		num.print();		
-	}
-}
+System.out.println(Juicer.makeJuice(fruitBox));
+System.out.println(Juicer.makeJuice(appleBox));
+```
 
-class MyClass<T extends Number> {
-	
-	private T n;
-	
-	public void setn(T n) {
-		this.n = n;
-	}
-	
-	public void print() {
-		System.out.println(this.n);
+- 하지만 메소드의 매개 변수의 제네릭 타입을 `FruitBox<Fruit>`으로 고정해놓으면, `FruitBox<Apple>`타입의 객체는 makeJuice()의 매개변수가 될 수 없음.
+- 또한 제네릭 타입이 다른 것만으로는 오버로딩도 성립하지 않으므로 오버로딩도 불가능함.
+
+```
+class Juicer {
+	static Juice makeJuice(FruitBox<? extends Fruit> box) { // 와일드 카드 추가
+		String tmp = "";
+		for(Fruit f : box.getList()) tmp += f + " ";
+		return new Juice (tmp);
 	}
 }
 ```
+위처럼 와일드 카드를 사용하면 Fruit뿐만 아니라 `FruitBox<Apple>`, `FruitBox<Grape>`도 매개 변수로 들어갈 수 있음.
+
+- 와일드 카드의 종류
+1. <? extends T> 와일드 카드의 상한 제한(upper bound) - T와 그 자손들을 구현한 객체들만 매개변수로 가능
+2. <? super T> 와일드 카드의 하한 제한(lower bound) -T와 그 조상들을 구현한 객체들만 매개변수로 가능
+3. <?> 제한 없음
 
 
 
