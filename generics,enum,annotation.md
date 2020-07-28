@@ -17,14 +17,11 @@ list.add(100);
 
 ```
 // 제네릭스 사용한 경우
-ArrayList<String> list = new ArrayList<String>();
-list.add("홍성민");
+ArrayList<Integer> list = new ArrayList<Integer>();
+list.add("홍성민"); // error 발생!
 list.add(100);
 ```
-
-list.add("홍성민")에서는 경고가 발생하지 않고,  
-list.add(100)에서  
-> :x: `The method add(int, String) in the type ArrayList<String> is not applicable for the argument (int)`
+> :x: `The method add(Integer) in the type ArrayList<Integer> is not applicable for the argument (String)`
 
 
 ArrayList `<String>`처럼 제네릭스는 "앞으로 이 ArrayList에는 String 객체만 담겠어!" 라고 명시한 것  
