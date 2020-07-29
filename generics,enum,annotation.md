@@ -440,3 +440,70 @@ public static <T> List<T> asList(T... a) {
 메타 애너테이션은 **애너테이션을 위한 애너테이션**으로 애너테이션을 정의할 때 적용대상이나 유지기간을 지정하는데 사용됨.
 
 ### @Target
+
+- 애너테이션이 적용가능한 대상을 지정함.
+- `Target({TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE})`의 형식으로 사용.
+- 이외에도 ANNOTATION_TYPE, PACKAGE, TYPE_PARAMETER, TYPE_USE 등이 있음.
+
+### @Retention
+
+- 애너테이션이 유지되는 기간을 지정함.
+- SOURCE는 소스파일에만 존재하며 클래스파일에는 존재하지 않음.(@Override, @SuppressWarning)
+- CLASS는 클래스 파일에 존재하며 실행시에 사용불가능.(default)
+- RUNTIME 클래스 파일에 존재하며 실행시에 사용가능.(@FunctionalInterface)
+- `@Retention(RetentionPolicy.SOURCE)`의 형식으로 사용
+
+### @Documented
+
+- 애너테이션에 대한 정보가 javadoc으로 작성한 문서에 포함되도록 함.
+
+### @Inherited
+
+- 애너테이션이 자손 클래스에 상속되도록 함.
+- 부모 클래스에 @Inherited가 달려있는 A애너테이션이 있다면 이 클래스를 상속한 자손 클래스도 A애너테이션을 갖게됨.
+
+### @Repeatable
+
+- 같은 이름의 애너테이션이 여러번 붙을 수 있게 함.
+- 여러 애너테이션이 하나의 대상에 적용될 때 이 애너테이션들을 하나로 묶어서 다룰 수 있는 애너테이션도 추가로 정의해야 함.
+
+## 커스텀 애너테이션
+
+### 애너테이션의 요소
+
+- 애너테이션을 정의하는 것은 인터페이스를 정의하는 것과 거의 동일함.
+
+```
+@interface TestInfo {
+	int	 count();
+	String	 testedBy();
+	String[] testTools();
+	TestType testType(); // enum TestType { FIRST, FINAL}
+	DateTime testDate(); // 자신이 아닌 다른 애너테이션(@DateTime)을 포함할 수 있다.
+}
+@interface DateTime {
+	String yymmdd();
+	String hhmmss();
+}
+```
+- 애너테이션의 요소는 반환값이 있고 매개변수는 없는 추상 메소드의 형태를 가지며 상속을 통해 구현하지 않아도 됨.
+
+```
+@TestInfo {
+	count=3, testedBy = "Kim",
+	testTools = {"JUnit", "AutoTester"},
+	testType = TestType.FIRST,
+	testDate = @DateTime(yymmdd = "160101", hhmmss="235959")
+}
+public class NewClass { ... }
+```
+- 애너테이션을 적용할 때는 요소들의 값을 빠짐없이 정해주어야함.
+- 단 요소에 기본값을 정해주면 요소의 값을 정해주지 않은 경우 기본값으로 세팅됨.
+
+```
+@interface TestInfo {
+	int count() default 1;
+}
+@TestInfo	// @TestInfo(count=1)
+public class NewClass { ... }
+```
