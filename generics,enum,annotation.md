@@ -383,3 +383,6 @@ class Direction {
 |@Retention|애너테이션이 유지되는 범위를 지정하는데 사용한다.|
 |@Repeatable|애너테이션을 반복해서 적용할 수 있게 한다.|
 
+
+### @Override
+
