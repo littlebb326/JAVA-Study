@@ -434,7 +434,7 @@ public static <T> List<T> asList(T) {
 - 하지만, asList가 호출되는 부분에서 타입 T가 아닌 타입은 들어가지 않도록 제한되므로 문제는 없는 코드임.
 - 이 경고를 억제하기 위해 @SafeVarargs를 사용.
 - @SuppressWarnings("unchecked")로 경고를 억제하려면 메소드를 선언하는 곳과 호출하는 곳마다 애너테이션을 달아야 함.
-- 따라서, 관습적으로 메소드를 선언하는 곳에 @SafeVarargs로 unchecked 경로를 억제하고, @SuppressWarnings("varargs")로 varargs 경고를 같이 억제함.
+- 따라서, 관습적으로 메소드를 선언하는 곳에 @SafeVarargs로 unchecked 경고를 억제하고, @SuppressWarnings("varargs")로 varargs 경고를 같이 억제함.
 
 ## 메타 애너테이션
 
