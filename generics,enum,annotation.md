@@ -425,7 +425,7 @@ class Child extends Parent {
 
 - 메소드에 선언된 가변인자가 구체화 되지 않은 타입인 경우 unchecked 경고 발생.
 ```
-public static <T> List<T> asList(T... a) {
+public static <T> List<T> asList(T) {
 	return new ArrayList<T> (a); // ArrayList (E[] array) 를 호출. 경고발생
 }
 ```
