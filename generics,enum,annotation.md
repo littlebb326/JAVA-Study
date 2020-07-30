@@ -175,7 +175,7 @@ class Juicer {
 	}
 }
 ```
-위처럼 와일드 카드를 사용하면 Fruit뿐만 아니라 `FruitBox<Apple>`, `FruitBox<Grape>`도 매개 변수로 들어갈 수 있음.
+위처럼 와일드 카드를 사용하면 `FruitBox<Fruit>`뿐만 아니라 `FruitBox<Apple>`, `FruitBox<Grape>`도 매개 변수로 들어갈 수 있음.
 
 ### 와일드 카드의 종류
 
