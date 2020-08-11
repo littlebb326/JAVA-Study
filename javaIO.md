@@ -31,8 +31,7 @@ JAVA IO
 
 # 바이트 단위 입출력 예제(1)
 
-<pre>
-<code>
+```ruby
 package exIO;
 
 import java.io.*;
@@ -71,9 +70,7 @@ public class Ex1 {
 	}
 
 }
-
-</code>
-</pre>
+```
 
 ![result1](./image/ex1.PNG)
 
