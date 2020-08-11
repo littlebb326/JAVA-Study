@@ -39,7 +39,9 @@ import java.io.*;
 public class Ex1 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+
+		long startTime = System.currentTimeMillis();
+		
 		FileInputStream fis = null; 
 		FileOutputStream fos = null;        
 		try {
@@ -67,8 +69,11 @@ public class Ex1 {
 			e.printStackTrace();
 		    }
 		}
+		//메소드가 끝났을때 시간을 구하기 위함. 
+		long endTime = System.currentTimeMillis();
+		//메소드를 수행하는데 걸린 시간을 구할 수 있음.		
+		System.out.println(endTime-startTime); // 36023ms
 	}
-
 }
 ```
 
@@ -118,7 +123,7 @@ public class Ex1 {
 	    //메소드가 끝났을때 시간을 구하기 위함. 
 	    long endTime = System.currentTimeMillis();
 	    //메소드를 수행하는데 걸린 시간을 구할 수 있음. 
-	    System.out.println(endTime-startTime);
+	    System.out.println(endTime-startTime); // 83ms
 	}
 
 }
@@ -134,12 +139,12 @@ import java.io.*;
 public class Ex1 {
 
 	public static void main(String[] args) {
+	
+		long startTime = System.currentTimeMillis();  
 		
 		BufferedReader br = null;
 		PrintWriter pw = null;
-		
-		
-		
+			
 		try {
 			br = new BufferedReader(new FileReader("input.txt"));
 			//System.in은 InputStream 타입이므로 BufferedReader의 생성자에 바로 들어갈 수 없다.
@@ -161,6 +166,10 @@ public class Ex1 {
 			}
 		}
 		
+		//메소드가 끝났을때 시간을 구하기 위함. 
+		long endTime = System.currentTimeMillis();
+		//메소드를 수행하는데 걸린 시간을 구할 수 있음.		
+		System.out.println(endTime-startTime); // 90ms		
 	}
 }
 ```
@@ -303,3 +312,41 @@ NIO는 이러한 문제도 해결할 수 있음.
 - 따라서 NIO는 **연결 클라이언트 수가 많고 하나의 입출력 처리 작업이 오래걸리지 않는 경우**에 사용.
 - NIO는 버퍼 할당 크기가 문제가 되고, 모든 입출력 작업에 버퍼를 무조건 사용해야 하므로 즉시 처리하는 IO보다 조금 더 복잡함.
 - IO는 **연결 클라이언트 수가 적고 순차적으로 대용량 데이터를 처리하는 경우**에 사용.
+
+
+
+```ruby
+public static void main(String[] args) throws Exception{
+
+	long startTime = System.currentTimeMillis();
+
+	String str = "";
+
+	Path input = Paths.get("C:\\Users\\sungmin_hong\\eclipse-workspace\\study\\src\\study\\input.txt");
+	try (FileChannel in = FileChannel.open(input, 
+			StandardOpenOption.READ, StandardOpenOption.WRITE)) {
+
+		// ByteBuffer 생성 (Direct)
+		ByteBuffer buf = ByteBuffer.allocate((int) Files.size(input));
+		Charset charset = Charset.defaultCharset();
+
+		// 파일 끝날 때까지 파일 내용 읽기
+		in.read(buf);
+		buf.clear();
+
+		// 파일 쓰기
+		in.write(buf);
+
+	} catch (Exception e) {
+
+		System.out.println("예외 발생");
+	}
+		
+		
+	//메소드가 끝났을때 시간을 구하기 위함. 
+	long endTime = System.currentTimeMillis();
+	//메소드를 수행하는데 걸린 시간을 구할 수 있음.		
+	System.out.println(endTime-startTime); // 13ms
+	
+	}
+```
