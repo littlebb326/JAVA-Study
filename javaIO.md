@@ -313,7 +313,7 @@ NIO는 이러한 문제도 해결할 수 있음.
 - NIO는 버퍼 할당 크기가 문제가 되고, 모든 입출력 작업에 버퍼를 무조건 사용해야 하므로 즉시 처리하는 IO보다 조금 더 복잡함.
 - IO는 **연결 클라이언트 수가 적고 순차적으로 대용량 데이터를 처리하는 경우**에 사용.
 
-
+# NIO 예제
 
 ```ruby
 public static void main(String[] args) throws Exception{
